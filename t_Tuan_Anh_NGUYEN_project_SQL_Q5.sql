@@ -8,5 +8,8 @@ WHERE country = 'Czech republic';
 
 SELECT *
 FROM czechia_payroll AS cpay
-JOIN czechia_price AS cp 
-	ON cpay.payroll_year = YEAR(cp.date_from);
+LEFT JOIN czechia_price AS cp 
+	ON cpay.payroll_year = YEAR(cp.date_from)
+LEFT JOIN economies AS e
+	ON cpay.payroll_year = e.`year`
+WHERE e.country = 'Czech republic' AND cpay.value_type_code = "5958";
