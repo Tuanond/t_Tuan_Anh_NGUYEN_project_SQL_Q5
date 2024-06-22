@@ -23,10 +23,9 @@ GROUP BY payroll_year;
 SELECT
 	e.country,
 	e.YEAR,
-	avg(cpay.value) AS average_payroll,
-	avg(cp.value) AS average_prices,
 	e.GDP,
-	e.gini
+	round(avg(cpay.value),0) AS average_payroll,
+	round(avg(cp.value),2) AS average_prices
 FROM czechia_payroll AS cpay
 LEFT JOIN czechia_price AS cp 
 	ON cpay.payroll_year = YEAR(cp.date_from)
@@ -34,5 +33,4 @@ LEFT JOIN economies AS e
 	ON cpay.payroll_year = e.`year`
 WHERE e.country = 'Czech republic' AND cpay.value_type_code = "5958"
 GROUP BY e.year;
-
 
